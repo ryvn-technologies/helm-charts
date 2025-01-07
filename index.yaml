@@ -3,7 +3,7 @@ entries:
   orchestrator:
   - apiVersion: v2
     appVersion: 0.21.0
-    created: "2025-01-07T17:14:24.219763327Z"
+    created: "2025-01-07T19:03:48.326323778Z"
     description: A Helm chart for Kubernetes
     digest: 4736b02b84bd5fe57766b3073008c4c9dde70b75e8fc28f0826c45099904db44
     name: orchestrator
@@ -13,7 +13,7 @@ entries:
     version: 0.21.0
   - apiVersion: v2
     appVersion: 0.20.0
-    created: "2025-01-07T17:14:24.219378808Z"
+    created: "2025-01-07T19:03:48.325895992Z"
     description: A Helm chart for Kubernetes
     digest: 556e25e9fe5da838d33b712073c9e1c6741294b0f913e8eebb979ac7a5949809
     name: orchestrator
@@ -23,8 +23,18 @@ entries:
     version: 0.20.0
   ryvn-agent:
   - apiVersion: v2
+    appVersion: 0.15.0
+    created: "2025-01-07T19:03:48.32763002Z"
+    description: A Helm Agent that manages installations for the Ryvn platform
+    digest: ed270a36c3fb2d6c24fe259a320073a3269f84c5c55281e8693f38c90c7471a2
+    name: ryvn-agent
+    type: application
+    urls:
+    - ryvn-agent-0.15.0.tgz
+    version: 0.15.0
+  - apiVersion: v2
     appVersion: 0.14.0
-    created: "2025-01-07T17:14:24.220831705Z"
+    created: "2025-01-07T19:03:48.327392388Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: b0240168518f7ec6979db1671df06df854a0b86960c6e6c7291850c4ed1ca977
     name: ryvn-agent
@@ -34,7 +44,7 @@ entries:
     version: 0.14.0
   - apiVersion: v2
     appVersion: 0.13.0
-    created: "2025-01-07T17:14:24.220610732Z"
+    created: "2025-01-07T19:03:48.327144927Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: e235ac9d720f0376bd1020e1e68732a7ae44a02085e59437213c43a3914ee59c
     name: ryvn-agent
@@ -44,7 +54,7 @@ entries:
     version: 0.13.0
   - apiVersion: v2
     appVersion: 0.12.0
-    created: "2025-01-07T17:14:24.220316191Z"
+    created: "2025-01-07T19:03:48.326816395Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: 692a55361839bfa0ac786cd45551c05c01e3bbede424a330c13572c6f765831c
     name: ryvn-agent
@@ -54,7 +64,7 @@ entries:
     version: 0.12.0
   - apiVersion: v2
     appVersion: 0.11.2
-    created: "2025-01-07T17:14:24.220015439Z"
+    created: "2025-01-07T19:03:48.326565699Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: a67aa807fff588a5e8ec12987d67935e8c81fa3bf99325308114ba47981ed3b4
     name: ryvn-agent
@@ -62,4 +72,4 @@ entries:
     urls:
     - ryvn-agent-0.11.2.tgz
     version: 0.11.2
-generated: "2025-01-07T17:14:24.218792041Z"
+generated: "2025-01-07T19:03:48.325346198Z"
