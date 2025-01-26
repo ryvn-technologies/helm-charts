@@ -2,8 +2,18 @@ apiVersion: v1
 entries:
   orchestrator:
   - apiVersion: v2
+    appVersion: 0.35.0
+    created: "2025-01-26T21:21:53.193634433Z"
+    description: A Helm chart for Kubernetes
+    digest: 337a2ed18baf386b9f762d656b203ff487d15516f898a0d21e4b6fb2c4689352
+    name: orchestrator
+    type: application
+    urls:
+    - orchestrator-0.35.0.tgz
+    version: 0.35.0
+  - apiVersion: v2
     appVersion: 0.34.0
-    created: "2025-01-26T18:50:45.665743049Z"
+    created: "2025-01-26T21:21:53.193286995Z"
     description: A Helm chart for Kubernetes
     digest: 68cb85ad552b3b2d7b20eb46e4e18fdf4d3a0f8c476852e33217d5cafef8bcd5
     name: orchestrator
@@ -13,7 +23,7 @@ entries:
     version: 0.34.0
   - apiVersion: v2
     appVersion: 0.33.0
-    created: "2025-01-26T18:50:45.665159659Z"
+    created: "2025-01-26T21:21:53.192933645Z"
     description: A Helm chart for Kubernetes
     digest: 85d3a6e0fbf7dbecf015516a8ef2ec2669b83664dc4e2099a1497c1a4bcf80b4
     name: orchestrator
@@ -23,7 +33,7 @@ entries:
     version: 0.33.0
   - apiVersion: v2
     appVersion: 0.32.0
-    created: "2025-01-26T18:50:45.664780721Z"
+    created: "2025-01-26T21:21:53.192549137Z"
     description: A Helm chart for Kubernetes
     digest: af1c4982a5d55baabb28a83ca81f705a90ad14f3bd68c86f39f1a4797ce7195d
     name: orchestrator
@@ -33,7 +43,7 @@ entries:
     version: 0.32.0
   - apiVersion: v2
     appVersion: 0.30.0
-    created: "2025-01-26T18:50:45.664395471Z"
+    created: "2025-01-26T21:21:53.192199575Z"
     description: A Helm chart for Kubernetes
     digest: 2379cc9629146244f127d81dc1b2860c328c2ac48e50ae19aade988748fdb6a9
     name: orchestrator
@@ -43,7 +53,7 @@ entries:
     version: 0.30.0
   - apiVersion: v2
     appVersion: 0.29.0
-    created: "2025-01-26T18:50:45.663994542Z"
+    created: "2025-01-26T21:21:53.191825697Z"
     description: A Helm chart for Kubernetes
     digest: 35d64040892de779a11b5eee3abb1cf7ccb6ee14fe08aa83d041c5bf450cef32
     name: orchestrator
@@ -53,7 +63,7 @@ entries:
     version: 0.29.0
   - apiVersion: v2
     appVersion: 0.28.0
-    created: "2025-01-26T18:50:45.663580478Z"
+    created: "2025-01-26T21:21:53.191437723Z"
     description: A Helm chart for Kubernetes
     digest: 1aa28d06074f2b2a2e74cafd47dda302c4134f0e59e19b9ec421c57d8e907329
     name: orchestrator
@@ -63,7 +73,7 @@ entries:
     version: 0.28.0
   - apiVersion: v2
     appVersion: 0.27.0
-    created: "2025-01-26T18:50:45.662388363Z"
+    created: "2025-01-26T21:21:53.190984426Z"
     description: A Helm chart for Kubernetes
     digest: 15a8bb172c7c8e83567fdf7871d48df9fdcce162723097398abf84a25fe6ad6f
     name: orchestrator
@@ -73,7 +83,7 @@ entries:
     version: 0.27.0
   - apiVersion: v2
     appVersion: 0.26.0
-    created: "2025-01-26T18:50:45.661996932Z"
+    created: "2025-01-26T21:21:53.189761453Z"
     description: A Helm chart for Kubernetes
     digest: 6babe87d625156419113bb05c390c265a10b9a6451ba8828d0ff6db06973d935
     name: orchestrator
@@ -83,7 +93,7 @@ entries:
     version: 0.26.0
   - apiVersion: v2
     appVersion: 0.25.0
-    created: "2025-01-26T18:50:45.661623724Z"
+    created: "2025-01-26T21:21:53.188563233Z"
     description: A Helm chart for Kubernetes
     digest: e180abeae62f1948be4b588eda107c8e4e3d815d33d0f30cdb52bce63e1176dc
     name: orchestrator
@@ -93,7 +103,7 @@ entries:
     version: 0.25.0
   - apiVersion: v2
     appVersion: 0.24.0
-    created: "2025-01-26T18:50:45.661197879Z"
+    created: "2025-01-26T21:21:53.188160952Z"
     description: A Helm chart for Kubernetes
     digest: 968d52d679329ec04b2050265e0faaa3b1ace309dff77aa94a3dd537887949a1
     name: orchestrator
@@ -103,7 +113,7 @@ entries:
     version: 0.24.0
   - apiVersion: v2
     appVersion: 0.23.0
-    created: "2025-01-26T18:50:45.660809834Z"
+    created: "2025-01-26T21:21:53.187761967Z"
     description: A Helm chart for Kubernetes
     digest: cfcb04c425a3eaab22cc9da93d7ebff16c7e510ebb9d1eeec3f7ef9f61f6cd25
     name: orchestrator
@@ -113,7 +123,7 @@ entries:
     version: 0.23.0
   - apiVersion: v2
     appVersion: 0.22.0
-    created: "2025-01-26T18:50:45.660416548Z"
+    created: "2025-01-26T21:21:53.18719576Z"
     description: A Helm chart for Kubernetes
     digest: 0c10d08f9af65ce0dc3b0cc0c013715cfc50fe78355c25a546cb4fe1cc25c853
     name: orchestrator
@@ -123,7 +133,7 @@ entries:
     version: 0.22.0
   - apiVersion: v2
     appVersion: 0.21.0
-    created: "2025-01-26T18:50:45.659997716Z"
+    created: "2025-01-26T21:21:53.18646737Z"
     description: A Helm chart for Kubernetes
     digest: 4736b02b84bd5fe57766b3073008c4c9dde70b75e8fc28f0826c45099904db44
     name: orchestrator
@@ -133,7 +143,7 @@ entries:
     version: 0.21.0
   - apiVersion: v2
     appVersion: 0.20.0
-    created: "2025-01-26T18:50:45.659578082Z"
+    created: "2025-01-26T21:21:53.185822977Z"
     description: A Helm chart for Kubernetes
     digest: 556e25e9fe5da838d33b712073c9e1c6741294b0f913e8eebb979ac7a5949809
     name: orchestrator
@@ -144,7 +154,7 @@ entries:
   ryvn-agent:
   - apiVersion: v2
     appVersion: 0.23.0
-    created: "2025-01-26T18:50:45.669593434Z"
+    created: "2025-01-26T21:21:53.197232296Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: a92a793e631245dfade6b9bc6e66b0071d81cb785f602d8b46e211a7351f4738
     name: ryvn-agent
@@ -154,7 +164,7 @@ entries:
     version: 0.23.0
   - apiVersion: v2
     appVersion: 0.21.0
-    created: "2025-01-26T18:50:45.668833684Z"
+    created: "2025-01-26T21:21:53.196543083Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: 6c63e11ccb4bcfeaeb873db239b59c3d29cfc91723195c55edd77259e0e87340
     name: ryvn-agent
@@ -164,7 +174,7 @@ entries:
     version: 0.21.0
   - apiVersion: v2
     appVersion: 0.20.0
-    created: "2025-01-26T18:50:45.668602703Z"
+    created: "2025-01-26T21:21:53.196312503Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: 0826cc38113a0bd0c8113f2129ff7425f9edfb2164b0cf442184c9463633482a
     name: ryvn-agent
@@ -174,7 +184,7 @@ entries:
     version: 0.20.0
   - apiVersion: v2
     appVersion: 0.19.0
-    created: "2025-01-26T18:50:45.668368595Z"
+    created: "2025-01-26T21:21:53.196082934Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: 0ff53826cb0bca1c1a0a0a3bedf8ed51a15e4e7630f7ab29c153b23807af833f
     name: ryvn-agent
@@ -184,7 +194,7 @@ entries:
     version: 0.19.0
   - apiVersion: v2
     appVersion: 0.18.0
-    created: "2025-01-26T18:50:45.668129799Z"
+    created: "2025-01-26T21:21:53.195851101Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: eeb73c7b3d967edd6f3bd7cfc177e35805e5bd7f3dfa89df69406b03b0b7c682
     name: ryvn-agent
@@ -194,7 +204,7 @@ entries:
     version: 0.18.0
   - apiVersion: v2
     appVersion: 0.17.0
-    created: "2025-01-26T18:50:45.667865835Z"
+    created: "2025-01-26T21:21:53.195590445Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: 747958e59d7f57d621e1ee86afc12721d6deee5bb9f1817865f609b1ecba8fba
     name: ryvn-agent
@@ -204,7 +214,7 @@ entries:
     version: 0.17.0
   - apiVersion: v2
     appVersion: 0.16.0
-    created: "2025-01-26T18:50:45.667462342Z"
+    created: "2025-01-26T21:21:53.195337984Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: c746e1e6cf5d08fcc9c708bf654289dc0b7250890324ded95ebb87160b97061b
     name: ryvn-agent
@@ -214,7 +224,7 @@ entries:
     version: 0.16.0
   - apiVersion: v2
     appVersion: 0.15.0
-    created: "2025-01-26T18:50:45.667221171Z"
+    created: "2025-01-26T21:21:53.194881Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: ed270a36c3fb2d6c24fe259a320073a3269f84c5c55281e8693f38c90c7471a2
     name: ryvn-agent
@@ -224,7 +234,7 @@ entries:
     version: 0.15.0
   - apiVersion: v2
     appVersion: 0.14.0
-    created: "2025-01-26T18:50:45.666983346Z"
+    created: "2025-01-26T21:21:53.194633188Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: b0240168518f7ec6979db1671df06df854a0b86960c6e6c7291850c4ed1ca977
     name: ryvn-agent
@@ -234,7 +244,7 @@ entries:
     version: 0.14.0
   - apiVersion: v2
     appVersion: 0.13.0
-    created: "2025-01-26T18:50:45.666753637Z"
+    created: "2025-01-26T21:21:53.19440433Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: e235ac9d720f0376bd1020e1e68732a7ae44a02085e59437213c43a3914ee59c
     name: ryvn-agent
@@ -244,7 +254,7 @@ entries:
     version: 0.13.0
   - apiVersion: v2
     appVersion: 0.12.0
-    created: "2025-01-26T18:50:45.66646091Z"
+    created: "2025-01-26T21:21:53.194127905Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: 692a55361839bfa0ac786cd45551c05c01e3bbede424a330c13572c6f765831c
     name: ryvn-agent
@@ -254,7 +264,7 @@ entries:
     version: 0.12.0
   - apiVersion: v2
     appVersion: 0.11.2
-    created: "2025-01-26T18:50:45.666165188Z"
+    created: "2025-01-26T21:21:53.193899428Z"
     description: A Helm Agent that manages installations for the Ryvn platform
     digest: a67aa807fff588a5e8ec12987d67935e8c81fa3bf99325308114ba47981ed3b4
     name: ryvn-agent
@@ -265,7 +275,7 @@ entries:
   web-server:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2025-01-26T18:50:45.670331363Z"
+    created: "2025-01-26T21:21:53.198178473Z"
     description: 'A common template chart that powers the web-server.v1 service type
       on Ryvn. This chart offers configuration to enable running basic servers on
       kubernetes with configuration to change ingress, replicas, images, etc. '
@@ -275,4 +285,4 @@ entries:
     urls:
     - web-server-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-26T18:50:45.658980054Z"
+generated: "2025-01-26T21:21:53.184973742Z"
