@@ -2543,6 +2543,18 @@ entries:
     version: 0.1.0
   web-server:
   - apiVersion: v2
+    appVersion: 0.9.0
+    created: "2025-09-23T02:21:35.891574-04:00"
+    description: 'A common template chart that powers the web-server.v1 service type
+      on Ryvn. This chart offers configuration to enable running basic servers on
+      kubernetes with configuration to change ingress, replicas, images, etc. '
+    digest: 508d702ad70070b3f7781fbf79fa76523283bf996ab80e94bf4394e60eadd76c
+    name: web-server
+    type: application
+    urls:
+    - web-server-0.9.0.tgz
+    version: 0.9.0
+  - apiVersion: v2
     appVersion: 0.8.0
     created: "2025-09-23T03:14:57.301115571Z"
     description: 'A common template chart that powers the web-server.v1 service type
