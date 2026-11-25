@@ -1,0 +1,648 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: routes.networking.ryvn.app
+spec:
+  group: networking.ryvn.app
+  names:
+    kind: Route
+    listKind: RouteList
+    plural: routes
+    shortNames:
+    - route
+    singular: route
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Ready")].status
+      name: Ready
+      type: string
+    - jsonPath: .status.conditions[?(@.type=="Ready")].reason
+      name: Reason
+      type: string
+    - jsonPath: .status.endpoints[0].url
+      name: URL
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          Route defines how traffic reaches Ryvn service installations.
+          Learn more: https://ryvn.ai/docs/networking/routes
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: |-
+              Spec describes where a Route is served, the hostnames it answers to and
+              the Service each path forwards to.
+            properties:
+              domains:
+                description: |-
+                  Domains lists the hostnames this Route serves. At least one is required.
+                  Names in the environment's public domain use the public network. Names
+                  in its internal domain use the internal network. Custom domains use the
+                  public network when spec.exposure includes "public", or the internal
+                  network otherwise.
+                items:
+                  maxLength: 253
+                  minLength: 1
+                  pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?\.)+[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                  type: string
+                type: array
+              exposure:
+                default:
+                - internal
+                description: |-
+                  Exposure lists the networks this Route is served on: "public" is the
+                  internet, "internal" is the environment's private network. Every
+                  hostname in domains must belong to a listed network. Defaults to
+                  [internal].
+                items:
+                  description: Exposure is a network a Route is served on.
+                  enum:
+                  - public
+                  - internal
+                  type: string
+                maxItems: 2
+                minItems: 1
+                type: array
+                x-kubernetes-list-type: set
+              rules:
+                description: |-
+                  Rules is the routing table. Each rule matches a path prefix and forwards
+                  to a Service.
+                items:
+                  description: Rule is one path rule on a Route.
+                  properties:
+                    name:
+                      description: Name is an optional stable identifier for this
+                        rule.
+                      maxLength: 63
+                      pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                      type: string
+                    path:
+                      description: Path is the URL path prefix. Defaults to "/".
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^/.*$
+                      type: string
+                      x-kubernetes-validations:
+                      - message: must not contain '//'
+                        rule: '!self.contains(''//'')'
+                      - message: must not contain '/./'
+                        rule: '!self.contains(''/./'')'
+                      - message: must not contain '/../'
+                        rule: '!self.contains(''/../'')'
+                      - message: must not contain '%2f'
+                        rule: '!self.contains(''%2f'')'
+                      - message: must not contain '%2F'
+                        rule: '!self.contains(''%2F'')'
+                      - message: must not contain '#'
+                        rule: '!self.contains(''#'')'
+                      - message: must not end with '/..'
+                        rule: '!self.endsWith(''/..'')'
+                      - message: must not end with '/.'
+                        rule: '!self.endsWith(''/.'')'
+                      - message: must only contain valid characters (matching ^(?:[-A-Za-z0-9/._~!$&'()*+,;=:@]|[%][0-9a-fA-F]{2})+$)
+                        rule: self.matches(r"""^(?:[-A-Za-z0-9/._~!$&'()*+,;=:@]|[%][0-9a-fA-F]{2})+$""")
+                    replacePrefix:
+                      description: |-
+                        ReplacePrefix replaces this rule's path prefix before the request is
+                        forwarded. Use it when the service listens on "/" but should be served
+                        under a path: with path "/api" and replacePrefix "/", a request for
+                        "/api/users" reaches the service as "/users".
+
+                        Forwarded requests carry the prefix in an X-Forwarded-Prefix header.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^/.*$
+                      type: string
+                      x-kubernetes-validations:
+                      - message: must not contain '//'
+                        rule: '!self.contains(''//'')'
+                      - message: must not contain '/./'
+                        rule: '!self.contains(''/./'')'
+                      - message: must not contain '/../'
+                        rule: '!self.contains(''/../'')'
+                      - message: must not contain '%2f'
+                        rule: '!self.contains(''%2f'')'
+                      - message: must not contain '%2F'
+                        rule: '!self.contains(''%2F'')'
+                      - message: must not contain '#'
+                        rule: '!self.contains(''#'')'
+                      - message: must not end with '/..'
+                        rule: '!self.endsWith(''/..'')'
+                      - message: must not end with '/.'
+                        rule: '!self.endsWith(''/.'')'
+                      - message: must only contain valid characters (matching ^(?:[-A-Za-z0-9/._~!$&'()*+,;=:@]|[%][0-9a-fA-F]{2})+$)
+                        rule: self.matches(r"""^(?:[-A-Za-z0-9/._~!$&'()*+,;=:@]|[%][0-9a-fA-F]{2})+$""")
+                    timeouts:
+                      description: Timeouts sets per-rule request deadlines when provided.
+                      properties:
+                        request:
+                          description: |-
+                            Request is the overall request timeout, for example "30s" or "1m30s".
+                            When omitted, no time limit is applied at the gateway.
+                          pattern: ^([0-9]{1,5}(h|m|s|ms)){1,4}$
+                          type: string
+                      type: object
+                    to:
+                      description: |-
+                        To lists the Services this rule forwards to. One per rule in this
+                        release.
+                      items:
+                        description: Backend is one Service a rule forwards to, in
+                          the Route's namespace.
+                        properties:
+                          kind:
+                            default: Service
+                            description: Kind is the backend kind. Only Service is
+                              supported.
+                            enum:
+                            - Service
+                            type: string
+                          name:
+                            description: Name is the Service name in the Route's namespace.
+                            maxLength: 253
+                            minLength: 1
+                            type: string
+                          port:
+                            anyOf:
+                            - type: integer
+                            - type: string
+                            description: |-
+                              Port selects the Service port this rule forwards to, by name such as
+                              "http" or by number.
+                            x-kubernetes-int-or-string: true
+                        required:
+                        - name
+                        - port
+                        type: object
+                      maxItems: 1
+                      minItems: 1
+                      type: array
+                      x-kubernetes-list-type: atomic
+                  required:
+                  - to
+                  type: object
+                maxItems: 16
+                minItems: 1
+                type: array
+                x-kubernetes-list-type: atomic
+              security:
+                properties:
+                  externalAuth:
+                    description: |-
+                      ExternalAuth sends request details to an external auth service before the
+                      request is forwarded. Only a 200 response allows the request. If the auth
+                      service can't be reached, the request is denied.
+                    properties:
+                      allowedHeaders:
+                        description: |-
+                          AllowedHeaders lists additional client request headers to send to the auth
+                          service. The method, host, path, Accept, Authorization, Cookie,
+                          Proxy-Authorization, X-Forwarded-For, and X-Forwarded-Proto are always sent.
+                        items:
+                          description: HeaderName is an HTTP header name.
+                          maxLength: 256
+                          minLength: 1
+                          pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
+                          type: string
+                        maxItems: 16
+                        type: array
+                        x-kubernetes-list-type: set
+                        x-kubernetes-validations:
+                        - message: allowedHeaders takes exact header names; '*' is
+                            not supported.
+                          rule: self.all(h, !h.contains('*'))
+                      allowedResponseHeaders:
+                        description: |-
+                          AllowedResponseHeaders lists headers to copy from the auth service's 200
+                          response to the request sent to the backend, replacing any the client sent.
+                        items:
+                          description: HeaderName is an HTTP header name.
+                          maxLength: 256
+                          minLength: 1
+                          pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
+                          type: string
+                        maxItems: 16
+                        type: array
+                        x-kubernetes-list-type: set
+                        x-kubernetes-validations:
+                        - message: allowedResponseHeaders takes exact header names;
+                            '*' is not supported.
+                          rule: self.all(h, !h.contains('*'))
+                      path:
+                        description: |-
+                          Path is a prefix added to the request path sent to the auth service.
+                          Defaults to no prefix.
+                        maxLength: 1024
+                        pattern: ^/(?:[-A-Za-z0-9/._~!$&'()*+,;=:@]|[%][0-9a-fA-F]{2})*$
+                        type: string
+                      service:
+                        description: Service is the Service to send auth requests
+                          to.
+                        properties:
+                          name:
+                            description: Name is the Service name.
+                            maxLength: 253
+                            minLength: 1
+                            type: string
+                          namespace:
+                            description: Namespace is the Service namespace. Defaults
+                              to the Route's namespace.
+                            maxLength: 63
+                            pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                            type: string
+                          port:
+                            anyOf:
+                            - type: integer
+                            - type: string
+                            description: Port selects the Service port by name, such
+                              as "http", or by number.
+                            x-kubernetes-int-or-string: true
+                        required:
+                        - name
+                        - port
+                        type: object
+                    required:
+                    - service
+                    type: object
+                type: object
+                x-kubernetes-validations:
+                - message: Set externalAuth, or remove security.
+                  rule: has(self.externalAuth)
+              tls:
+                description: |-
+                  TLS passes encrypted connections directly to the backend when configured.
+                  Omit it to use HTTP routing and Ryvn-managed TLS.
+                properties:
+                  mode:
+                    description: Mode preserves the client's TLS connection. The backend
+                      must serve TLS.
+                    enum:
+                    - passthrough
+                    type: string
+                required:
+                - mode
+                type: object
+            required:
+            - rules
+            type: object
+            x-kubernetes-validations:
+            - message: A passthrough Route can have only one domain.
+              rule: '!has(self.tls) || self.tls.mode != ''passthrough'' || !has(self.domains)
+                || size(self.domains) <= 1'
+            - message: TLS passthrough requires exactly one rule.
+              rule: '!has(self.tls) || self.tls.mode != ''passthrough'' || size(self.rules)
+                == 1'
+            - message: TLS passthrough does not support paths or rewrites. Remove
+                path and replacePrefix.
+              rule: '!has(self.tls) || self.tls.mode != ''passthrough'' || self.rules.all(r,
+                !has(r.path) && !has(r.replacePrefix))'
+            - message: TLS passthrough does not support request timeouts. Remove timeouts.
+              rule: '!has(self.tls) || self.tls.mode != ''passthrough'' || self.rules.all(r,
+                !has(r.timeouts))'
+            - message: TLS passthrough does not support externalAuth. Remove security.externalAuth
+                or tls.
+              rule: '!has(self.tls) || self.tls.mode != ''passthrough'' || !has(self.security)
+                || !has(self.security.externalAuth)'
+          status:
+            description: |-
+              Status is the observed state of a Route, written for the application owner:
+              can people reach each URL, and if not, what do they do about it. Gateway API
+              implementation detail stays out of it.
+            properties:
+              conditions:
+                description: 'Conditions is the whole-Route rollup: Accepted and Ready.'
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+                x-kubernetes-validations:
+                - message: condition reason must be one of the recognized Route reasons
+                  rule: self.all(c, c.reason in ['Accepted','NoRules','Ready','Pending','InvalidTarget','DNSNotConfigured','InternalError'])
+              endpoints:
+                description: Endpoints is one entry per URL this Route serves; empty
+                  until accepted.
+                items:
+                  description: Endpoint is one URL this Route serves and whether it
+                    works.
+                  properties:
+                    certificate:
+                      description: Certificate reports TLS status for custom domains
+                        and the managed public apex.
+                      properties:
+                        expiresAt:
+                          description: ExpiresAt is when the current certificate stops
+                            being valid.
+                          format: date-time
+                          type: string
+                        issuedAt:
+                          description: IssuedAt is when the current certificate became
+                            valid.
+                          format: date-time
+                          type: string
+                        renewsAt:
+                          description: RenewsAt is when Ryvn will renew the certificate.
+                          format: date-time
+                          type: string
+                        serving:
+                          description: |-
+                            Serving is unset until the public gateway reports a verdict; false means
+                            it rejected the certificate.
+                          type: boolean
+                        status:
+                          description: Status is where issuance currently stands.
+                          enum:
+                          - WaitingForDNS
+                          - Pending
+                          - Issued
+                          - Failed
+                          type: string
+                      required:
+                      - status
+                      type: object
+                    conditions:
+                      description: |-
+                        Conditions holds this URL's Ready condition. No CEL guard on the reason:
+                        a per-item rule in an uncapped list exceeds the API server's validation
+                        cost budget, so TestEveryEndpointReasonIsPublished enforces it instead.
+                      items:
+                        description: Condition contains details for one aspect of
+                          the current state of this API Resource.
+                        properties:
+                          lastTransitionTime:
+                            description: |-
+                              lastTransitionTime is the last time the condition transitioned from one status to another.
+                              This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                            format: date-time
+                            type: string
+                          message:
+                            description: |-
+                              message is a human readable message indicating details about the transition.
+                              This may be an empty string.
+                            maxLength: 32768
+                            type: string
+                          observedGeneration:
+                            description: |-
+                              observedGeneration represents the .metadata.generation that the condition was set based upon.
+                              For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                              with respect to the current state of the instance.
+                            format: int64
+                            minimum: 0
+                            type: integer
+                          reason:
+                            description: |-
+                              reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                              Producers of specific condition types may define expected values and meanings for this field,
+                              and whether the values are considered a guaranteed API.
+                              The value should be a CamelCase string.
+                              This field may not be empty.
+                            maxLength: 1024
+                            minLength: 1
+                            pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                            type: string
+                          status:
+                            description: status of the condition, one of True, False,
+                              Unknown.
+                            enum:
+                            - "True"
+                            - "False"
+                            - Unknown
+                            type: string
+                          type:
+                            description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                            maxLength: 316
+                            pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                            type: string
+                        required:
+                        - lastTransitionTime
+                        - message
+                        - reason
+                        - status
+                        - type
+                        type: object
+                      maxItems: 8
+                      type: array
+                      x-kubernetes-list-map-keys:
+                      - type
+                      x-kubernetes-list-type: map
+                    dnsManagedBy:
+                      description: DNSManagedBy identifies whether Ryvn or the user
+                        manages this hostname's DNS.
+                      enum:
+                      - ryvn
+                      - user
+                      type: string
+                    dnsRecords:
+                      description: |-
+                        DNSRecords are the records the domain owner must create and what Ryvn
+                        currently resolves. Set only for user-owned domains.
+                      items:
+                        description: |-
+                          DNSRecord is one record the domain owner must create, plus what Ryvn
+                          currently resolves for it.
+                        properties:
+                          lastChangedAt:
+                            description: LastChangedAt is when the record's current
+                              status was first observed.
+                            format: date-time
+                            type: string
+                          name:
+                            type: string
+                          observedValues:
+                            description: ObservedValues contains the bounded resolver
+                              answers for a mismatch.
+                            items:
+                              maxLength: 253
+                              type: string
+                            maxItems: 16
+                            type: array
+                          role:
+                            description: Role is what the record enables.
+                            enum:
+                            - ACMEChallenge
+                            - Routing
+                            type: string
+                          status:
+                            description: Status is the observation result.
+                            enum:
+                            - Pending
+                            - Valid
+                            - Missing
+                            - Mismatch
+                            - Unknown
+                            type: string
+                          type:
+                            description: DNSRecordType identifies a DNS resource record
+                              type.
+                            enum:
+                            - CNAME
+                            - A
+                            - TXT
+                            type: string
+                          value:
+                            type: string
+                        required:
+                        - name
+                        - status
+                        - type
+                        - value
+                        type: object
+                      maxItems: 8
+                      type: array
+                      x-kubernetes-list-type: atomic
+                    exposure:
+                      description: Exposure is the network this URL is served on.
+                      enum:
+                      - public
+                      - internal
+                      type: string
+                    fqdn:
+                      description: FQDN is the lowercased hostname; DNS records and
+                        certificates are keyed by it.
+                      maxLength: 253
+                      type: string
+                    path:
+                      description: Path is the HTTP path prefix, or empty for TLS
+                        passthrough.
+                      maxLength: 1024
+                      type: string
+                    state:
+                      description: |-
+                        State is the wait-or-act verdict: Pending means keep waiting, Error means
+                        something must change.
+                      enum:
+                      - Pending
+                      - Active
+                      - Error
+                      type: string
+                    target:
+                      description: Target is the Service port this URL forwards to.
+                      properties:
+                        kind:
+                          description: Kind is the backend kind; always Service today.
+                          type: string
+                        name:
+                          description: Name is the Service name in the Route's namespace.
+                          type: string
+                        port:
+                          description: |-
+                            Port is the Service port name as authored, even when it failed to
+                            resolve.
+                          type: string
+                        portNumber:
+                          description: PortNumber is the resolved port number, when
+                            known.
+                          format: int32
+                          type: integer
+                      required:
+                      - kind
+                      - name
+                      type: object
+                    url:
+                      description: |-
+                        URL identifies this entry: fqdn and path joined into the address clients
+                        display.
+                      maxLength: 2048
+                      type: string
+                  required:
+                  - exposure
+                  - fqdn
+                  - path
+                  - state
+                  - url
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - url
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: ObservedGeneration is the metadata.generation last processed
+                  by Ryvn.
+                format: int64
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
